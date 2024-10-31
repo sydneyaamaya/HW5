@@ -32,10 +32,22 @@ class ProblemSolutions {
 
     public boolean isSubset(int list1[], int list2[]) {
         /**
-         * 1.Use a for loop to populat a hash table with list1
+         * B is a subset of A if of it's elements are in A
+         * 1.Use a for loop to populate a hash table with list1
+         * 2.Use a for loop to iterate through B and see if
+         * the hashtable contains each element
+         * 3.If there is an element of B not in A, return false
          */
-
-        return false;
+        Hashtable<Integer, String> listOneHash = new Hashtable<>();
+        for (int i = 0; i < list1.length; i++){
+            listOneHash.put(list1[i], "String");
+        }
+        for (int i = 0; i < list2.length; i++){
+            if(!listOneHash.containsKey(list2[i])){
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -53,10 +65,26 @@ class ProblemSolutions {
      */
 
     public int findKthLargest(int[] array, int k) {
-
-        // ADD YOUR CODE HERE
-
-        return 0;
+        /**
+         * 1.Iterate through the array and order all the elements
+         * in ascending order by using two for loops, one to iterate 
+         * through the array and the other to compare each element
+         * to every other element 
+         * 2.if array[i] is greater than array[j] swap the elements
+         * 3.to find the kth largest element in the array in ascending order, 
+         * subtract k from the array's length 
+         */
+        int temp = 0;
+        for (int i = 0; i < array.length; i++){
+            for (int j = i + 1; j < array.length; j++){
+                if (array[i] > array[j]){
+                    temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp; 
+                }
+            }
+        }
+        return array[array.length - k];
     }
 
 
