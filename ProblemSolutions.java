@@ -105,20 +105,17 @@ class ProblemSolutions {
         /**
          * 1.create an array that is the length of array1 + array2
          * 2.add all the elements from array1 and array2 to the array
-         * 3.like the last problem, use two for loops to sort the array 
+         * 3.sort the array 
          */
         int [] merged = new int[array1.length + array2.length];
         //count is a variable to keep track of where the last element
         //of array1 was added to the merged array
-        int count = 0;
         int temp = 0;
         for (int i = 0; i < array1.length; i++){
             merged[i] = array1[i];
-            count++;
         }
-        for (int i = count - 1; i < array2.length; i++){
-            merged[i] = array2[temp];
-            temp++;
+        for (int i = 0; i < array2.length; i++){
+            merged[array1.length + i] = array2[i];
         }
         for (int i = 0; i < merged.length; i++){
             for (int j = i + 1; j < merged.length; j++){

@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   SYDNEY AMAYA / SECTION 001
  *
  *   Note, additional comments provided throughout source code is
  *   for educational purposes.
