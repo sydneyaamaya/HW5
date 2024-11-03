@@ -216,15 +216,35 @@ class BloomFilter {
      */
 
     public boolean contains(String s) {
-
-        // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE
-        //
         // HINT: the bitmap is the private class variable 'data', and it is
         // of type BitSet (Java class BitSet). See Oracle documentation for
         // this class on available methods. You can also see how method 'add'
         // in this class uses the object.
-
-        return false;
+        /**
+         * 1. given a string, check the bucket it hashes to
+         * 2. if the bucket is not empty, return true
+         * 3. if the bucket is empty, return false
+         * use data.get 
+         */
+        boolean contains = false;
+        //use a for loop like the add method to generate k hash codes
+        for (int n = 0; n < noHashes; n++) {
+            long hc = hashCode(s, n);
+            int bitNo = (int) (hc) & this.hashMask;
+            //check if the hash code generated is 0 or 1 at the bucket 
+            //using data.get
+            if(data.get(bitNo) == true){
+                //if data.get is true then the bucket is 1
+                contains = true;
+            }
+            //if data.get is not true then the bucket is 0 and 
+            //contains must be set to false since all buckets
+            //must return true for s to be present in the bloom filter
+            else {
+                contains = false;
+            }
+        }
+        return contains;
     }
 
 

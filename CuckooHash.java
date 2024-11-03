@@ -245,10 +245,23 @@ public class CuckooHash<K, V> {
 	 */
 
  	public void put(K key, V value) {
-
-		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
-		// Also make sure you read this method's prologue above, it should help
-		// you. Especially the two HINTS in the prologue.
+		/**
+		 * 1. call the hash functions hash1 and hash2
+		 * 2. check if hash1 location if empty, if it is empty, 
+		 * put the pair in that location
+		 * 3. if the location is not empty, kick out the pair at 
+		 * that location and put the new pair in it
+		 * 4. if a pair from hash1 location was kicked out, place 
+		 * that pair in it's hash2 location
+		 * 5. if it's hash2 location is not empty, kick out 
+		 * the pair in the hash2 location and send it to it's hash1 location
+		 * 6. continue this process until an empty location is found or 
+		 * it repeats n times 
+		 * 7. if this process repeates n times (which is the value of capacity), 
+		 * call the rehash method 
+		 */
+		int hash1 = hash1(key);
+		
 
 		return;
 	}
