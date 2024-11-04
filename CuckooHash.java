@@ -247,7 +247,7 @@ public class CuckooHash<K, V> {
  	public void put(K key, V value) {
 		/**
 		 * 1. call the hash functions hash1 and hash2
-		 * 2. check if hash1 location if empty, if it is empty, 
+		 * 2. check if hash1 location is empty, if it is empty, 
 		 * put the pair in that location
 		 * 3. if the location is not empty, kick out the pair at 
 		 * that location and put the new pair in it
@@ -260,10 +260,23 @@ public class CuckooHash<K, V> {
 		 * 7. if this process repeates n times (which is the value of capacity), 
 		 * call the rehash method 
 		 */
-		int hash1 = hash1(key);
-		
-
-		return;
+		int count = 0;
+		if (count > CAPACITY){
+			rehash();
+		}
+		int pos1 = hash1(key);
+		if (table[pos1] == null){
+			table[pos1].bucKey = key;
+			table[pos1].value = value;
+			return;
+		}
+		int pos2 = hash2(table[pos1].getBucKey());
+		K replacedK = table[pos1].getBucKey();
+		V replacedV = table[pos1].getValue();
+		if(table[pos2] == null){
+			table[pos2].bucKey = replacedK;
+			table[pos2].value = replacedV;
+		}
 	}
 
 
