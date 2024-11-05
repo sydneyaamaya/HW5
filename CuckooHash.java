@@ -260,23 +260,32 @@ public class CuckooHash<K, V> {
 		 * 7. if this process repeates n times (which is the value of capacity), 
 		 * call the rehash method 
 		 */
-		int count = 0;
-		if (count > CAPACITY){
-			rehash();
-		}
 		int pos1 = hash1(key);
-		if (table[pos1] == null){
-			table[pos1].bucKey = key;
-			table[pos1].value = value;
-			return;
+		Bucket<K,V> placed = new Bucket <> (key, value);
+		for (int i = 0; i <= CAPACITY; i++){
+			if(table[pos1] == null){
+				table[pos1] = placed;
+				return;
+			}
+			else {
+			    Bucket <K,V> replaced = table[pos1];
+			    table[pos1] = placed;
+			    placed = replaced;
+			    int pos2 = hash2(placed.getBucKey());
+			    if (table[pos2] == null){
+				    table[pos2] = placed;
+				    return;
+			    }
+			    else {
+				    replaced = table[pos2];
+				    table[pos2] = placed;
+				    placed = replaced;
+			    }
+		    }
+		    pos1 = (pos1 == hash1(placed.bucKey) ? hash2(placed.bucKey) : hash1(placed.bucKey));
 		}
-		int pos2 = hash2(table[pos1].getBucKey());
-		K replacedK = table[pos1].getBucKey();
-		V replacedV = table[pos1].getValue();
-		if(table[pos2] == null){
-			table[pos2].bucKey = replacedK;
-			table[pos2].value = replacedV;
-		}
+		rehash();
+		put(placed.bucKey, placed.value);
 	}
 
 
