@@ -262,28 +262,39 @@ public class CuckooHash<K, V> {
 		 */
 		int pos1 = hash1(key);
 		Bucket<K,V> placed = new Bucket <> (key, value);
+		//loop that ends when capacity is reached
 		for (int i = 0; i <= CAPACITY; i++){
+			//check if first index is null, if yes then place pair and return
 			if(table[pos1] == null){
 				table[pos1] = placed;
 				return;
 			}
+			//if it's not null
 			else {
+				//store the current pair in a variable
 			    Bucket <K,V> replaced = table[pos1];
+				//place the param in the index
 			    table[pos1] = placed;
+				//store replaced pair
 			    placed = replaced;
+				//find replaced pair's second hash
 			    int pos2 = hash2(placed.getBucKey());
+				//if there is no pair at the second hash place the pair there
 			    if (table[pos2] == null){
 				    table[pos2] = placed;
 				    return;
 			    }
+				//if there something there, repeat the process to kick it out
 			    else {
 				    replaced = table[pos2];
 				    table[pos2] = placed;
 				    placed = replaced;
 			    }
 		    }
+			//pos1 will become either hash1 or hash2 bucket
 		    pos1 = (pos1 == hash1(placed.bucKey) ? hash2(placed.bucKey) : hash1(placed.bucKey));
 		}
+		//if loop ends, rehash and call function 
 		rehash();
 		put(placed.bucKey, placed.value);
 	}
